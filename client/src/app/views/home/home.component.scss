@@ -1,11 +1,25 @@
 .enlarge-fade {
-   transform: scale(3);
-   transition: all 1s;
-   animation: fadeOut 1s;
+  transform: scale(3);
+  transition: all 1s;
+  animation: fadeOut 1s;
 }
 
 @keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+  0% {
+    opacity: 1;
   }
-  
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes move-to-center {
+  from {
+    transform: translate(-50%, -50%);
+  }
+
+  to {
+    transform: translate(0, 0);
+  }
+}
