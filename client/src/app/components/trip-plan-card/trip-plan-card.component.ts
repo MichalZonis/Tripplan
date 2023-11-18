@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import TripPlan from "../../models/TripPlan";
+
 
 @Component({
   selector: 'app-trip-plan-card',
@@ -10,4 +12,6 @@ import { CommonModule } from '@angular/common';
 })
 export class TripPlanCardComponent {
 
+  @Input() tripPlan!: TripPlan 
+    
 }

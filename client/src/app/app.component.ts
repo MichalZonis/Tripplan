@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { HomeComponent } from './views/home/home.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, GoogleMapsModule, HomeComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, GoogleMapsModule, MatToolbarModule,],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -15,9 +15,9 @@ export class AppComponent {
   title = 'tripplan';
   // zoom = 3; // Initial zoom level for the map
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   // display: any; // Property to store latitude and longitude data from the map
   // center: google.maps.LatLngLiteral = {
