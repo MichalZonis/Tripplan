@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-// TODO: this is a template for an object model. create others as needed and rename or delete this one.
-
 const locationSchema = new mongoose.Schema({
     name: String,
     GeolocationCoordinates: {
@@ -11,9 +9,19 @@ const locationSchema = new mongoose.Schema({
     isOptional: {
         type: Boolean,
         default: false,
-      },
-    visitHours: {
-        type: {startTime: Date, endTime: Date},
+    },
+    visitHours: { // TODO: this will probably need to be expanded to include dates since events can overflow to the next day.
+        type: {
+            startTime: {
+                type: String,
+                match: /^([01]\d|2[0-3]):([0-5]\d)$/
+            } // Regular expression to validate HH:mm format
+            ,
+            endTime: {
+                type: String,
+                match: /^([01]\d|2[0-3]):([0-5]\d)$/ 
+            }// Regular expression to validate HH:mm format
+        },
         validate: {
             validator: function () {
                 // Check if the optional property is required based on the value of isOptional
