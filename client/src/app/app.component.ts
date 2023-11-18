@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, GoogleMapsModule, MatToolbarModule,],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, GoogleMapsModule, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
