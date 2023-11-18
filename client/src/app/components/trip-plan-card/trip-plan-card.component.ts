@@ -12,6 +12,6 @@ import TripPlan from "../../models/TripPlan";
 })
 export class TripPlanCardComponent {
 
-  @Input() tripPlan!: TripPlan 
-    
+  @Input({ required: true }) tripPlan!: TripPlan
+
 }
