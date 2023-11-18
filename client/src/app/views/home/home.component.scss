@@ -1,0 +1,11 @@
+.enlarge-fade {
+   transform: scale(3);
+   transition: all 1s;
+   animation: fadeOut 1s;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  

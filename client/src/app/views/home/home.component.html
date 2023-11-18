@@ -1,5 +1,6 @@
 <div class="row w-100">
-  <div *ngFor="let trip of trips" class="col-xl-3 col-md-6 mt-3 d-flex p-0 justify-content-center ">
-    <app-trip-plan-card [tripPlan]="trip" ></app-trip-plan-card>
+  <div *ngFor="let trip of trips; index as i" class="col-xl-3 col-md-6 mt-3 d-flex p-0 justify-content-center ">
+    <app-trip-plan-card (click)="clicked(i)" [ngClass]="{'enlarge-fade': clickedTrip == i}" [tripPlan]="trip">
+    </app-trip-plan-card>
   </div>
 </div>

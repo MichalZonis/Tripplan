@@ -2,7 +2,7 @@ export type TripPlan = {
     name: string,
     id: string,
     planners: string[],
-    thumbnail: string,
+    thumbnail?: string,
     // startDate: Date,
     // endDate: Date,
 
