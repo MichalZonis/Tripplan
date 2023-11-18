@@ -13,3 +13,5 @@ export type TripPlan = {
 
     // }
 }
+
+export default TripPlan
