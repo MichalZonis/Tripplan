@@ -1,22 +1,29 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { AuthenticationService } from '../authentication.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
+  
 })
+
 export class LoginComponent {
-  constructor(private router: Router,
-    private socialAuthService: SocialAuthService) {
-}
+  constructor(private authService: AuthenticationService) {}
 
   loginWithGoogle(): void {
-    // this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-    //   .then(() => this.router.navigate(['mainpage']));
+    this.authService.loginWithGoogle();
+  }
+
+  logOut(): void {
+    this.authService.logout();
+  }
+
+  login() {
+    this.authService.login('sas', 'sap');
   }
 }
