@@ -13,14 +13,14 @@ import TripPlan from '../../models/TripPlan';
   export class HomeComponent {
 
     trips: TripPlan[] = [{
-      name: "The big trip",
+      name: "The big trip1",
       id: "1",
-      planners: ["Michal"],
+      planners: ["Michal", "Noa"],
       thumbnail: "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg",
       // startDate: new Date(2023, 9, 15),
       // endDate: new Date(2024, 1, 15),
     },{
-      name: "The big trip",
+      name: "The big trip2",
       id: "1",
       planners: ["Michal"],
       thumbnail: "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg",
