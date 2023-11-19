@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const http = require('http');
 const mongoose = require('mongoose');
 const dbConfig = require('./config/database.config');
-
+const cookieParser = require("cookie-parser");
 
 const routes = require('./routes/base.route');
 const GameRouter = require('./routes/game.route')
@@ -12,7 +12,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(cookieParser());
 // CORS
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
