@@ -2,7 +2,19 @@
   <img [src]="tripPlan.thumbnail" class="card-img-top" alt="...">
   <div class="card-body">
     <p class="card-text fs-4">{{tripPlan.name}}</p>
-    startDate - endDate 
+    <p>startDate - endDate</p>
+    <p>Collaborators: {{tripPlan.planners.join(", ")}}</p>
+      <!-- TODO: there is this thing in angular 17 where you use @for instead of ngFor. worth considering -->
+      <!-- @for (item of [
+      { title: 'Explore the Docs', link: 'https://angular.dev' },
+      { title: 'Learn with Tutorials', link: 'https://angular.dev/tutorials' },
+      { title: 'CLI Docs', link: 'https://angular.dev/tools/cli' },
+      { title: 'Angular Language Service', link: 'https://angular.dev/tools/language-service' },
+      { title: 'Angular DevTools', link: 'https://angular.dev/tools/devtools' },
+    ]; track item.title) {} -->
+
+    
+  
     <!-- TODO: for whatever reason the dates dont work so theres a placeholder for design purposes -->
   </div>
 </div>
