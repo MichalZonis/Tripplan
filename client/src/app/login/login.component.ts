@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../authentication.service';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   
@@ -14,16 +15,18 @@ import { RouterModule } from '@angular/router';
 
 export class LoginComponent {
   constructor(private authService: AuthenticationService) {}
+  username: string = '';
+  password: string = '';
 
   loginWithGoogle(): void {
     this.authService.loginWithGoogle();
   }
 
-  logOut(): void {
+  logout(): void {
     this.authService.logout();
   }
 
   login() {
-    this.authService.login('sas', 'sap');
+    this.authService.login(this.username, this.password);
   }
 }
