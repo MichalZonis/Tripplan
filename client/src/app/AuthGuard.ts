@@ -8,11 +8,13 @@ import { AuthenticationService } from "./authentication.service";
 export class AuthGuard {
   constructor(private authService: AuthenticationService, private router: Router) {}
 
-  canActivate(): boolean {
-    if (this.authService.isAuthenticated()) {
-      return true;
+  canActivate() {
+    const authStatus = this.authService.isAuthenticated()
+
+    if(authStatus) {
+      return true
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(["/login"])
       return false;
     }
   }

@@ -1,21 +1,23 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { CookieService } from "ngx-cookie-service";
+import { User } from "./user.model";
 
 @Injectable({
     providedIn: "root"
 })
 
 export class AuthenticationService {
-    private isLoggedIn: boolean = false;
     loginUrl = "http://localhost:8000/auth/login";
+    loggedUser?: User;
 
-    constructor(private http: HttpClient,
-                private cookieService: CookieService) {}
+    constructor(private http: HttpClient) {}
 
     login(username: string, password: string) {
-        this.http.post<{token: string}>(this.loginUrl, {username: "admin", password: "Aa123456"}).subscribe((res) => {
+        this.http.post<{token: string, role: string, username: string, id: string}>
+        (this.loginUrl, {username: username, password: password})
+        .subscribe((res) => {
             localStorage.setItem("accessToken", res.token);
+            this.loggedUser = new User(res.username, res.role, res.id);
         })
     }
 
@@ -23,11 +25,14 @@ export class AuthenticationService {
     }
 
     isAuthenticated() {
-        console.log(this.isLoggedIn)
-        return this.isLoggedIn;
+        if(this.loggedUser) {
+            return true
+        }
+        return false;
     }
 
     logout() {
-        this.isLoggedIn = false;
+        localStorage.removeItem("accessToken");
+        this.loggedUser = undefined;
     }
 }
