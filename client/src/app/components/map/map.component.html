@@ -1,0 +1,9 @@
+<google-map height="400px" width="750px" [center]="center" [zoom]="zoom" (mapMousemove)="move($event)" (mapClick)="addMarker($event)">
+
+  @for (position of markerPositions; track position) {
+  <map-marker [position]="position" [options]="{draggable: false}" #marker="mapMarker" (mapClick)="openInfoWindow(marker)"></map-marker>
+  }
+  
+  <map-info-window>Info Window content</map-info-window>
+  <!-- <map-marker [position]="{lat: 35, lng: 139}" [options]="{draggable: false}"></map-marker> -->
+</google-map>

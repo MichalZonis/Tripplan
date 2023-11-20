@@ -1,12 +1,1 @@
-<!-- setting height and width respectively, 
-  and calling our three functions -->
-  <google-map height="400px"
-  width="750px"
-  [center]="center"
-  [zoom]="zoom"
-  (mapMousemove)="move($event)">
-</google-map>
-
-<!-- displaying real-time location -->
-<div>Latitude: {{display?.lat}}</div>
-<div>Longitude: {{display?.lng}}</div>
+<app-map></app-map>
