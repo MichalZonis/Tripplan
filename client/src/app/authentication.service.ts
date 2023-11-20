@@ -8,9 +8,12 @@ import { User } from "./user.model";
 
 export class AuthenticationService {
     loginUrl = "http://localhost:8000/auth/login";
+    assertionUrl = "http://localhost:8000/auth/assert"
     loggedUser?: User;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        this.tryAssertion()
+    }
 
     login(username: string, password: string) {
         this.http.post<{token: string, role: string, username: string, id: string}>
@@ -34,5 +37,18 @@ export class AuthenticationService {
     logout() {
         localStorage.removeItem("accessToken");
         this.loggedUser = undefined;
+    }
+
+    tryAssertion() {
+        const accessToken = localStorage.getItem("accessToken")
+        console.log(accessToken)
+        if(accessToken) {
+            console.log("found access token")
+            this.http.post
+            <{username: string, role: string, id: string}>
+            (this.assertionUrl, {accessToken: accessToken}).subscribe(res => {
+                this.loggedUser = new User(res.username, res.role, res.id)
+            })
+        }
     }
 }
