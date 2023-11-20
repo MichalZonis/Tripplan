@@ -4,6 +4,7 @@ const GameRouter = require('./game.route')
 const AuthRouter = require('./auth.route')
 
 router.get('/', function (req, res) {
+    console.log(req)
     res.send('API works!!!');
 });
 

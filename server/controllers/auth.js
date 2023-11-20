@@ -20,14 +20,13 @@ exports.register = async (req, res, next) => {
                 secret, 
               { expiresIn: maxAge }
             );
-            res.cookie("jwt", token, {
-              httpOnly: true,
-              maxAge: maxAge * 1000, // 3hrs in ms
-            });
             
             res.status(200).json({
               message: "User successfully created",
-              user,
+              username: user.username,
+              role: user.role,
+              id: user._id,
+              accessToken: token
             })
           }
         )
@@ -41,58 +40,56 @@ exports.register = async (req, res, next) => {
 }
 
 exports.login = async (req, res, next) => {
-    const { username, password } = req.body;
-    if (!username || !password) {
-        return res.status(400).json({
-          message: "Username or Password not present",
-        })
-    }
+  const { username, password } = req.body;
+  if (!username || !password) {
+      return res.status(400).json({
+        message: "Username or Password not present",
+      })
+  }
     
-    try {
-      const user = await User.findOne({ username })
-      // if did not find a user with that username
-      if (!user) {
-        res.status(401).json({
-          message: "Login not successful",
-          error: "Username or password is incorrect",
-        })
-      } else {
-        // compare the password's hash with the stored hash
-        bcrypt.compare(password, user.password).then((result) => {
-          // if equal (correct password)
-          if (result) {
-            // build the JWT cookie
-            const maxAge = 3 * 60 * 60; // 3hrs in sec
-            const token = jwt.sign(
-              { id: user._id, username, role: user.role },
-                secret,
-              { expiresIn: maxAge }
-            );
+  try {
+    const user = await User.findOne({ username })
+    // if did not find a user with that username
+    if (!user) {
+      res.status(401).json({
+        message: "Login not successful",
+        error: "Username or password is incorrect",
+      })
+    } else {
+      // compare the password's hash with the stored hash
+      bcrypt.compare(password, user.password).then((result) => {
+        // if equal (correct password)
+        if (result) {
+          // build the JWT
+          const maxAge = 3 * 60 * 60; // 3hrs in sec
+          const token = jwt.sign(
+            { id: user._id, username, role: user.role },
+              secret,
+            { expiresIn: maxAge }
+          );
 
-            res.cookie("jwt", token, {
-              httpOnly: true,
-              maxAge: maxAge * 1000, // 3hrs in ms
-            });
-
-            res.status(200).json({
-              message: "Login successfull",
-              user: user
-            })
-          // else - wrong password
-          } else {
-            res.status(401).json({
-              message: "Login not successful",
-              error: "Username or password is incorrect",
-            })
-          }
-        })
-      }
-    } catch (error) {
-      res.status(500).json({
-        message: "An error occurred",
-        error: error.message,
+          res.status(200).json({
+            message: "Login successfull",
+            username: user.username,
+            role: user.role,
+            id: user._id,
+            token: token
+          })
+        // else - wrong password
+        } else {
+          res.status(401).json({
+            message: "Login not successful",
+            error: "Username or password is incorrect",
+          })
+        }
       })
     }
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred",
+      error: error.message,
+    })
+  }
 }
 
 exports.setAdmin = async (req, res, next) => {
