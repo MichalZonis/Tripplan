@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { User } from "./user.model";
-import { SocialAuthService, GoogleLoginProvider } from "@abacritt/angularx-social-login";
 
 @Injectable({
     providedIn: "root"
@@ -12,8 +11,7 @@ export class AuthenticationService {
     assertionUrl = "http://localhost:8000/auth/assert"
     loggedUser?: User;
 
-    constructor(private http: HttpClient,
-                private socialAuthService: SocialAuthService) {
+    constructor(private http: HttpClient) {
         this.tryAssertion()
     }
 
@@ -27,8 +25,7 @@ export class AuthenticationService {
     }
 
     loginWithGoogle() {
-        this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-        console.log(this.socialAuthService.authState)
+    
     }
 
     isAuthenticated() {
