@@ -19,10 +19,6 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
 
-  loginWithGoogle(): void {
-    this.authService.loginWithGoogle();
-  }
-
   logout(): void {
     this.authService.logout();
   }
@@ -33,9 +29,11 @@ export class LoginComponent {
     this.password = '';
   }
 
-  onGoogleLogin(token: any) {
+  onGoogleLogin(token: {credential: string}) {
     try {
-       console.log(jwtDecode(token.credential));
+      const decodedToken = jwtDecode(token.credential);
+      console.log(decodedToken);
+      // TODO: access backend to receive accessToken & user
     } catch(Error) {
       console.log(Error)
     }

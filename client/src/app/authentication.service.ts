@@ -42,9 +42,7 @@ export class AuthenticationService {
 
     tryAssertion() {
         const accessToken = localStorage.getItem("accessToken")
-        console.log(accessToken)
         if(accessToken) {
-            console.log("found access token")
             this.http.post
             <{username: string, role: string, id: string}>
             (this.assertionUrl, {accessToken: accessToken}).subscribe(res => {
