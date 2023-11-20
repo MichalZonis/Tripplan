@@ -127,3 +127,18 @@ exports.deleteUser = async (req, res, next) => {
     })
   })
 }
+
+exports.assertToken = async (req, res, next) => {
+  const { accessToken } = req.body;
+  if(!accessToken) {
+    res.status(401).json({message: "No token given"})
+  } else {
+    jwt.verify(accessToken, secret, (error, decodedToken) => {
+      if(error) {
+        res.status(401).json({message: "Invalid token"})
+      } else {
+        res.status(200).json({decodedToken: decodedToken})
+      }
+    })
+  }
+}
