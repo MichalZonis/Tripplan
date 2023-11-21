@@ -1,10 +1,10 @@
 export type TripPlan = {
     name: string,
-    id: string,
+    id?: string,
     planners: string[],
-    thumbnail: string,
-    // startDate: Date,
-    // endDate: Date,
+    thumbnail?: string,
+    startDate: Date,
+    endDate: Date,
 
     // constructor() {
     //     this.name = "lllll";
