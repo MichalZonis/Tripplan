@@ -10,12 +10,11 @@ import { FormsModule } from '@angular/forms';
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  
 })
 
 export class LoginComponent {
   constructor(private authService: AuthenticationService) {}
-  username: string = '';
+  email: string = '';
   password: string = '';
 
   logout(): void {
@@ -23,9 +22,8 @@ export class LoginComponent {
   }
 
   login(): void {
-    console.log('trying login')
-    this.authService.login(this.username, this.password);
-    this.username = '';
+    this.authService.login(this.email, this.password);
+    this.email = '';
     this.password = '';
   }
 

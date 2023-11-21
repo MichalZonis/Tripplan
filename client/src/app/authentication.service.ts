@@ -22,10 +22,10 @@ export class AuthenticationService {
         this.tryAssertion()
     }
 
-    login(username: string, password: string) {
+    login(email: string, password: string) {
         this.http.post
         <{token: string, role: string, email: string, id: string, firstName: string, lastName: string}>
-        (this.loginUrl, {username: username, password: password})
+        (this.loginUrl, {email: email, password: password})
         .subscribe((res) => {
             localStorage.setItem("accessToken", res.token);
             this.currentUserSubject.next(new User(res.email, res.role, res.id, res.firstName, res.lastName))
