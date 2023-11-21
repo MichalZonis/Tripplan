@@ -29,6 +29,11 @@ exports.register = async (req, res, next) => {
     if (password.length < 6) {
       return res.status(400).json({ message: "Password less than 6 characters" })
     }
+
+    if (!email || !password || !firstName || !lastName) {
+      return res.status(400).json({message: "missing parameters"})
+    }
+    
     try {
       bcrypt.hash(password, 10).then(async (hash) => {
         await User.create({
@@ -54,7 +59,7 @@ exports.register = async (req, res, next) => {
     } catch (error) {
       res.status(500).json({
         message: "User not created",
-        error: error.mesage,
+        error: error.message,
       })
     }
 }
