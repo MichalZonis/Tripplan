@@ -1,16 +1,12 @@
 const express = require('express');
-const GameRouter = express.Router();
+const TripPlanRouter = express.Router();
 
-const Game = require('../models/game')
-var ctrlGame = require('../controllers/game.controller');
+const TripPlan = require('../models/TripPlan')
+var ctrlTripPlan = require('../controllers/tripPlan.controller');
 
 // TODO: this is a template for a controller. create new ones beased on this one and rename or delete this on as needed
 
-// GameRouter.get('/', function (req, res) {
-//     Game.find({})
-//     .then(game => res.send(game))
-//     .catch((error) => console.log(error))
-// });
+TripPlanRouter.post('/', ctrlTripPlan.createTripPlan);
 
 // GameRouter.get('/check', function (req, res) {
 //     res.send('games works!');
