@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const locationSchema = new mongoose.Schema({
+const attractionSchema = new mongoose.Schema({
     name: String,
     GeolocationCoordinates: {
         Lat: Number,
@@ -36,6 +36,6 @@ const locationSchema = new mongoose.Schema({
     // attachments: [],
 });
 
-const location = mongoose.model("Location", locationSchema);
+const location = mongoose.model("Attraction", attractionSchema);
 
 module.exports = location;
