@@ -33,24 +33,33 @@ const attractionSchema = new mongoose.Schema({
                 // Check if the optional property is required based on the value of isOptional
                 return this.isOptional || (!this.isOptional && this.visitHours);
             },
-            message: 'visit hours are required when the location is agreed upon',
+            message: 'visit hours are required when the attraction is agreed upon',
         }
     },
     visitDates: {
-        startDate: {
-            type: Date,
-            required: true,
-            validate: {
-                validator: function (value) {
-                    // 'this' refers to the document being validated
-                    return value <= this.endDate; // Ensure startDate is before or equal to endDate
+        type: {
+            startDate: {
+                type: Date,
+                required: true,
+                validate: {
+                    validator: function (value) {
+                        // 'this' refers to the document being validated
+                        return value <= this.endDate; // Ensure startDate is before or equal to endDate
+                    },
+                    message: 'Start date must be before or equal to end date',
                 },
-                message: 'Start date must be before or equal to end date',
             },
+            endDate: {
+                type: Date,
+                required: true,
+            }
         },
-        endDate: {
-            type: Date,
-            required: true,
+        validate: {
+            validator: function () {
+                // Check if the optional property is required based on the value of isOptional
+                return this.isOptional || (!this.isOptional && this.visitHours);
+            },
+            message: 'visit dates are required when the attraction is agreed upon'
         }
     },
     description: String,
