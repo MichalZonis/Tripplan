@@ -37,9 +37,22 @@ const attractionSchema = new mongoose.Schema({
         }
     },
     visitDates: {
-        startDate: Date,
-        endDate: Date
-    }, // TODO: there should be validation that end date is after start date
+        startDate: {
+            type: Date,
+            required: true,
+            validate: {
+                validator: function (value) {
+                    // 'this' refers to the document being validated
+                    return value <= this.endDate; // Ensure startDate is before or equal to endDate
+                },
+                message: 'Start date must be before or equal to end date',
+            },
+        },
+        endDate: {
+            type: Date,
+            required: true,
+        }
+    },
     description: String,
     attractionPrice: Number,
     // addedBy: User,
