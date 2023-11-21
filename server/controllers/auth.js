@@ -63,52 +63,43 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
-      return res.status(400).json({
-        message: "Username or Password not present",
-      })
-  }
-    
-  try {
-    const user = await User.findOne({ email })
-    // if did not find a user with that email
-    if (!user) {
-      res.status(401).json({
-        message: "Login not successful",
-        error: "Username or password is incorrect",
-      })
-    } else {
-      // compare the password's hash with the stored hash
-      bcrypt.compare(password, user.password).then((result) => {
-        // if equal (correct password)
-        if (result) {
-          // build the JWT
-          buildJWT(user.id).then((token) => {
-            res.status(200).json({
-              message: "Login successfull",
-              email: user.email,
-              role: user.role,
-              id: user._id,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              accessToken: token
-            })
-          })
-        // else - wrong password
-        } else {
-          res.status(401).json({
-            message: "Login not successful",
-            error: "Username or password is incorrect",
-          })
-        }
-      })
-    }
-  } catch (error) {
-    res.status(500).json({
-      message: "An error occurred",
-      error: error.message,
+    return res.status(400).json({
+      message: "Username or Password not present",
     })
   }
-}
+  try {
+    const user = await User.findOne({ email })
+
+    bcrypt.compare(password, user.password).then((result) => {
+      // if equal (correct password) and found user
+      if (result && user) {
+        // build the JWT
+        buildJWT(user.id).then((token) => {
+          res.status(200).json({
+            message: "Login successfull",
+            email: user.email,
+            role: user.role,
+            id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            accessToken: token
+          })
+        })
+      // else - wrong password or unknown username
+      } else {
+        res.status(401).json({
+          message: "Login not successful",
+          error: "Username or password is incorrect",
+        })
+      }
+    })
+    } catch (error) {
+        res.status(500).json({
+        message: "An error occurred",
+        error: error.message,
+      })
+    }
+  }
 
 // setting a user's role to admin
 exports.setAdmin = async (req, res, next) => {
