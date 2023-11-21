@@ -1,6 +1,6 @@
 const Mongoose = require("mongoose")
 const UserSchema = new Mongoose.Schema({
-  username: {
+  email: {
     type: String,
     unique: true,
     required: true,
@@ -15,6 +15,14 @@ const UserSchema = new Mongoose.Schema({
     default: "Basic",
     required: true,
   },
+  firstName: {
+    type: String,
+    reuired: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  }
 })
 
 const User = Mongoose.model("user", UserSchema)

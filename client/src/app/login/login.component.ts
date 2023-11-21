@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationService } from '../authentication.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -23,27 +22,20 @@ export class LoginComponent {
     this.authService.logout();
   }
 
-  login() {
+  login(): void {
+    console.log('trying login')
     this.authService.login(this.username, this.password);
     this.username = '';
     this.password = '';
   }
 
-  onGoogleLogin(token: {credential: string}) {
-    try {
-      const decodedToken = jwtDecode(token.credential);
-      console.log(decodedToken);
-      // TODO: access backend to receive accessToken & user
-    } catch(Error) {
-      console.log(Error)
-    }
-  }
 
   ngOnInit() {
     // @ts-ignore
     google.accounts.id.initialize({
       client_id: "431094013601-u10s6e3ltgrfe7st720uv19tjh10s354.apps.googleusercontent.com",
-      callback: this.onGoogleLogin
+      callback: this.authService.loginWithGoogle,
+      
     });
     // @ts-ignore
     google.accounts.id.renderButton(

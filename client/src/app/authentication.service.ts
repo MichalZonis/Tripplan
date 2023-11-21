@@ -8,7 +8,8 @@ import { User } from "./user.model";
 
 export class AuthenticationService {
     loginUrl = "http://localhost:8000/auth/login";
-    assertionUrl = "http://localhost:8000/auth/assert"
+    assertionUrl = "http://localhost:8000/auth/assert";
+    googleAssertionUrl = "http://localhost:8000/auth/assert/google";
     loggedUser?: User;
 
     constructor(private http: HttpClient) {
@@ -16,19 +17,19 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string) {
-        this.http.post<{token: string, role: string, username: string, id: string}>
+        this.http.post
+        <{token: string, role: string, email: string, id: string, firstName: string, lastName: string}>
         (this.loginUrl, {username: username, password: password})
         .subscribe((res) => {
             localStorage.setItem("accessToken", res.token);
-            this.loggedUser = new User(res.username, res.role, res.id);
+            this.loggedUser = new User(
+                res.email, res.role, res.id, res.firstName, res.lastName
+            )
         })
     }
 
-    loginWithGoogle() {
-    
-    }
-
     isAuthenticated() {
+        this.tryAssertion()
         if(this.loggedUser) {
             return true
         }
@@ -40,13 +41,34 @@ export class AuthenticationService {
         this.loggedUser = undefined;
     }
 
+    // this function is written with native JS because the context of this function
+    // is outside of angular (used as callback for google login module)
+    // see usage at login.component.ts, at ngOnInit()
+    loginWithGoogle(token: {credential: string}) {
+        console.log(token.credential);
+        (async () => {
+            const rawResponse = await fetch('http://localhost:8000/auth/assert/google', {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({token: token.credential})
+            });
+            const content = await rawResponse.json();
+            localStorage.setItem("accessToken", content.accessToken)
+        })();
+    }
+
     tryAssertion() {
         const accessToken = localStorage.getItem("accessToken")
         if(accessToken) {
             this.http.post
-            <{username: string, role: string, id: string}>
+            <{email: string, role: string, id: string, firstName: string, lastName: string}>
             (this.assertionUrl, {accessToken: accessToken}).subscribe(res => {
-                this.loggedUser = new User(res.username, res.role, res.id)
+                this.loggedUser = new User(
+                    res.email, res.role, res.id, res.firstName, res.lastName
+                )
             })
         }
     }
