@@ -11,6 +11,7 @@ export class AuthenticationService {
     loginUrl = "http://localhost:8000/auth/login";
     assertionUrl = "http://localhost:8000/auth/assert";
     googleAssertionUrl = "http://localhost:8000/auth/assert/google";
+    registerUrl = "http://localhost:8000/auth/register";
 
     private currentUserSubject = new BehaviorSubject<User | null>(null);
     public currentUser = this.currentUserSubject.asObservable();
@@ -24,10 +25,10 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         this.http.post
-        <{token: string, role: string, email: string, id: string, firstName: string, lastName: string}>
+        <{accessToken: string, role: string, email: string, id: string, firstName: string, lastName: string}>
         (this.loginUrl, {email: email, password: password})
         .subscribe((res) => {
-            localStorage.setItem("accessToken", res.token);
+            localStorage.setItem("accessToken", res.accessToken);
             this.currentUserSubject.next(new User(res.email, res.role, res.id, res.firstName, res.lastName))
             this.isAuthenticatedSubject.next(true); 
         })
@@ -80,5 +81,15 @@ export class AuthenticationService {
                 this.isAuthenticatedSubject.next(true);
             })
         }
+    }
+
+    register(email: string, password: string, firstName: string, lastName: string) {
+        this.http.post
+        <{accessToken: string, email: string, role: string, id: string, firstName: string, lastName: string}>
+        (this.registerUrl, {email, password, firstName, lastName}).subscribe(res => {
+            localStorage.setItem("accessToken", res.accessToken);
+            this.currentUserSubject.next(new User(res.email, res.role, res.id, res.firstName, res.lastName))
+            this.isAuthenticatedSubject.next(true); 
+        })
     }
 }
