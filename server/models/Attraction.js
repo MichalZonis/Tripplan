@@ -1,10 +1,16 @@
 const mongoose = require('mongoose');
 
 const attractionSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     GeolocationCoordinates: {
-        Lat: Number,
-        Lng: Number
+        type: {
+            Lat: Number,
+            Lng: Number
+        },
+        required: true
     },
     isOptional: {
         type: Boolean,
@@ -19,8 +25,8 @@ const attractionSchema = new mongoose.Schema({
             ,
             endTime: {
                 type: String,
-                match: /^([01]\d|2[0-3]):([0-5]\d)$/ 
-            }// Regular expression to validate HH:mm format
+                match: /^([01]\d|2[0-3]):([0-5]\d)$/
+            } // Regular expression to validate HH:mm format
         },
         validate: {
             validator: function () {
@@ -30,12 +36,16 @@ const attractionSchema = new mongoose.Schema({
             message: 'visit hours are required when the location is agreed upon',
         }
     },
+    visitDates: {
+        startDate: Date,
+        endDate: Date
+    }, // TODO: there should be validation that end date is after start date
     description: String,
     attractionPrice: Number,
     // addedBy: User,
     // attachments: [],
 });
 
-const location = mongoose.model("Attraction", attractionSchema);
+const attraction = mongoose.model("Attraction", attractionSchema);
 
-module.exports = location;
+module.exports = attraction;
