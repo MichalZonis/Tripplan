@@ -1,9 +1,9 @@
 export class Attraction {
     constructor(
-        private date: Date,
+        private id: string,
         private name: string,
+        private date: Date,
         private link: string,
         private tripID: string,
-        private id: string
     ) {}
 }
