@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
-const attraction = require('./Attraction');
+//const attraction = require('./Attraction');
 
 const tripPlanSchema = new mongoose.Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     //collaborators: [],
     dates: {
         startDate: {
@@ -20,15 +23,15 @@ const tripPlanSchema = new mongoose.Schema({
             type: Date,
             required: true,
         }
-    }, 
+    },
     thumbnail: {
         data: Buffer,
         contentType: String,
     },
-    attractions: [attraction] // these are embedded subdocuments
+    //attractions: [attraction] // these are embedded subdocuments
 });
 
-const tripPlan = mongoose.model("TripPlan", tripPlanSchema);
+const tripPlan = mongoose.model("tripPlan", tripPlanSchema);
 
 module.exports = tripPlan;
 

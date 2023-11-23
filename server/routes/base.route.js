@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const GameRouter = require('./game.route')
+const TripPlanRouter = require('./tripPlan.route')
 
 router.get('/', function (req, res) {
     res.send('API works!!!');
 });
 
+// router.get('/tripplan', function (req, res) {
+//     res.send('tripplan!!!');
+// });
 
-router.use('/game', GameRouter);
+
+router.use('/tripplan', TripPlanRouter);
 
 
 module.exports = router;
