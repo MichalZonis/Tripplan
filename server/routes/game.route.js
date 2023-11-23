@@ -1,8 +1,8 @@
 const express = require('express');
 const GameRouter = express.Router();
 
-const Game = require('../models/game')
-var ctrlGame = require('../controllers/game.controller');
+// const Game = require('../models/game')
+// var ctrlGame = require('../controllers/game.controller');
 
 // TODO: this is a template for a controller. create new ones beased on this one and rename or delete this on as needed
 
