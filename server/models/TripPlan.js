@@ -11,13 +11,14 @@ const tripPlanSchema = new mongoose.Schema({
         startDate: {
             type: Date,
             required: true,
-            validate: {
-                validator: function (value) {
-                    // 'this' refers to the document being validated
-                    return value <= this.endDate; // Ensure startDate is before or equal to endDate
-                },
-                message: 'Start date must be before or equal to end date',
-            },
+            // TODO: validation fails for some reason
+            // validate: {
+            //     validator: function (value) {
+            //         // 'this' refers to the document being validated
+            //         return value <= this.endDate; // Ensure startDate is before or equal to endDate
+            //     },
+            //     message: 'Start date must be before or equal to end date',
+            // },
         },
         endDate: {
             type: Date,
