@@ -3,8 +3,9 @@ const Attraction = require('../models/Attraction');
 
 module.exports.GetAttractionsByTripID = async function(req, res) {
     const id = req.params['id']
-    TripPlan.findById(id).then((trip) => {
-        res.status(200).json({message: "Found trip attractions", attractions: trip.attractions})
+    TripPlan.findById(id).then(async (trip) => {
+        const attractions = await Attraction.find({ '_id': { $in: trip.attractions } });
+        res.status(200).json({attractions: attractions})
     }).catch(error => {
         res.status(500).json({message: "error while searching for trip: " + id, error: error})
     })
