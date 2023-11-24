@@ -9,26 +9,30 @@ import { BehaviorSubject, firstValueFrom } from 'rxjs';
 export class TripPlanService {
 
   currTripPlan: TripPlan | null = null
-  
+
   private _tripPlans = new BehaviorSubject<TripPlan[]>([])
-  tripPlans = this._tripPlans.asObservable();
+  tripPlans$ = this._tripPlans.asObservable();
 
   constructor(private http: HttpService) { }
 
   async createTripPlan() {
     const newTrip: TripPlan =
     {
-      title: "Rome2",
+      title: "tokyo",
       dates: {
         startDate: new Date(2022, 3, 20),
         endDate: new Date(2022, 4, 10)
       },
-      planners: ["Yair", "Michael"]
+      planners: ["Yair", "Michal"]
     }
-    this.http.post("tripPlan/create", { newTrip }).subscribe((newTrip: any) => this._tripPlans.next([newTrip]));
+    this.http.post("tripPlan/create", { newTrip }).subscribe((newTrip: any) => {
+      this._tripPlans.next([...this._tripPlans.value, newTrip])
+    });
   }
 
   getAllTrips() {
-    this.http.get("tripPlan/all").subscribe((trips: any) => this._tripPlans.next(trips));
+    this.http.get("tripPlan/all").subscribe((trips: any) => {
+      this._tripPlans.next([...trips])
+    });
   }
 }

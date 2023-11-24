@@ -14,6 +14,7 @@ import { TripPlanService } from '../../services/trip-plan.service';
 export class HomeComponent {
 
   constructor(public s_tripPlan: TripPlanService) { }
+  trips$ = this.s_tripPlan.tripPlans$;
 
   trips: TripPlan[] = [{
     title: "The big trip1",
@@ -71,6 +72,5 @@ export class HomeComponent {
 
   ngOnInit() {
     this.s_tripPlan.getAllTrips()
-    this.s_tripPlan.tripPlans.subscribe((trips) => this.trips.push(...trips));
   }
 }
