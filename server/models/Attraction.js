@@ -69,5 +69,4 @@ const attractionSchema = new mongoose.Schema({
 });
 
 const attraction = mongoose.model("Attraction", attractionSchema);
-
 module.exports = attraction;

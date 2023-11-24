@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {AttractionSchema} = require('./Attraction');
 const attraction = require('./Attraction');
 
 const tripPlanSchema = new mongoose.Schema({
@@ -29,7 +30,10 @@ const tripPlanSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String,
     },
-    attractions: [] // these are embedded subdocuments
+    attractions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Attraction',
+    }]
 });
 
 const tripPlan = mongoose.model("TripPlan", tripPlanSchema);
