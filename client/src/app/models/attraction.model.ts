@@ -19,3 +19,5 @@ export class Attraction {
         public attractionPrice: number,
     ) {}
 }
+
+export default Attraction;
