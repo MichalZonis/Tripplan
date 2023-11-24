@@ -16,23 +16,16 @@ import { AttractionService } from '../../services/attraction.service';
 })
 
 export class TripViewComponent {
-  tripTitle: string = '';
-  tripPlan: TripPlan = new TripPlan(
-    '1',
-    'The big trip1',
-    [ ],
-    ['Michal', 'Noa'],
-    {startDate: new Date(), endDate: new Date()},
-    ""
-  );
+  attractions: Attraction[] = [];
 
   constructor(private route: ActivatedRoute, 
               private attractionService: AttractionService) {}
 
   ngOnInit() {
-    // load trip from trip services
-    this.attractionService.getAttraction(this.route.snapshot.params['id']).subscribe(attarctions => {
-      this.tripPlan.attractions = attarctions
+    // load attractions from attractions service
+    this.attractionService.getAttraction(this.route.snapshot.params['id']).subscribe(res => {
+      this.attractions = res.attractions
+      console.log(this.attractions)
     })
   }
 }

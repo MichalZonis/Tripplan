@@ -1,7 +1,7 @@
 <div class="card" style="width: 18rem;">
   <img [src]="tripPlan.thumbnail" class="card-img-top" alt="...">
   <div class="card-body">
-    <a [routerLink]="['/trip', tripPlan.title]"><p class="card-text fs-4">{{tripPlan.title}}</p></a>
+    <a [routerLink]="['/trip', tripPlan.id]"><p class="card-text fs-4">{{tripPlan.title}}</p></a>
     <p>{{tripPlan.dates.startDate.toDateString()}} - {{tripPlan.dates.endDate.toDateString()}}</p>
     <p>Collaborators: {{tripPlan.collaborators.join(", ")}}</p>
       <!-- TODO: there is this thing in angular 17 where you use @for instead of ngFor. worth considering -->

@@ -10,6 +10,6 @@ export class AttractionService {
   constructor(private http: HttpClient) { }
 
   getAttraction(tripID: string) {
-    return this.http.get<Attraction[]>(`http://localhost:8000/trip/${tripID}/attractions`)
+    return this.http.get<{attractions: Attraction[]}>(`http://localhost:8000/trips/${tripID}/attractions`)
   }
 }

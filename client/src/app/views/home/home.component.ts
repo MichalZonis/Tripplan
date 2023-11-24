@@ -12,7 +12,7 @@ import { TripPlan } from '../../models/TripPlan';
   })
   export class HomeComponent {
     trips: TripPlan[] = [
-      new TripPlan('1', 
+      new TripPlan('6560a4fc0eed542514c8ca45', 
       'The big trip1', 
       [], 
       ['Michal', 'Noa'],
