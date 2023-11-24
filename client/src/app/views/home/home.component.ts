@@ -13,52 +13,64 @@ import { TripPlanService } from '../../services/trip-plan.service';
 })
 export class HomeComponent {
 
-  constructor(public s_tripPlan: TripPlanService){}
+  constructor(public s_tripPlan: TripPlanService) { }
 
   trips: TripPlan[] = [{
-    name: "The big trip1",
-    startDate: new Date(2022, 10, 4),
-    endDate: new Date(2022, 11, 14),
+    title: "The big trip1",
+    dates: {
+      startDate: new Date(2022, 10, 4),
+      endDate: new Date(2022, 11, 14)
+    },
     id: "1",
     planners: ["Michal", "Noa"],
     thumbnail: "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg",
     // startDate: new Date(2023, 9, 15),
     // endDate: new Date(2024, 1, 15),
   }, {
-    name: "The big trip2",
+    title: "The big trip2",
     id: "1",
-    startDate: new Date(2022, 10, 4),
-    endDate: new Date(2022, 11, 14),
+    dates: {
+      startDate: new Date(2022, 10, 4),
+      endDate: new Date(2022, 11, 14)
+    },
     planners: ["Michal"],
     thumbnail: "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg",
     // startDate: new Date(2023, 9, 15),
     // endDate: new Date(2024, 1, 15),
   }, {
-    name: "The big trip",
+    title: "The big trip",
     id: "1",
-    planners: ["Michal"],
-    startDate: new Date(2022, 10, 4),
-    endDate: new Date(2022, 11, 14),
+    planners: ["Michal"], dates: {
+      startDate: new Date(2022, 10, 4),
+      endDate: new Date(2022, 11, 14)
+    },
     thumbnail: "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg",
     // startDate: new Date(2023, 9, 15),
     // endDate: new Date(2024, 1, 15),
   }, {
-    name: "The big trip",
-    id: "1",
-    startDate: new Date(2022, 10, 4),
-    endDate: new Date(2022, 11, 14),
+    title: "The big trip",
+    id: "1", dates: {
+      startDate: new Date(2022, 10, 4),
+      endDate: new Date(2022, 11, 14)
+    },
     planners: ["Michal"],
     thumbnail: "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg",
     // startDate: new Date(2023, 9, 15),
     // endDate: new Date(2024, 1, 15),
   }, {
-    name: "The big trip",
+    title: "The big trip",
     id: "1",
-    planners: ["Michal"],
-    startDate: new Date(2022, 10, 4),
-    endDate: new Date(2022, 11, 14),
+    planners: ["Michal"], dates: {
+      startDate: new Date(2022, 10, 4),
+      endDate: new Date(2022, 11, 14)
+    },
     thumbnail: "https://www.state.gov/wp-content/uploads/2019/04/Japan-2107x1406.jpg",
     // startDate: new Date(2023, 9, 15),
     // endDate: new Date(2024, 1, 15),
   },]
+
+  ngOnInit() {
+    this.s_tripPlan.getAllTrips()
+    this.s_tripPlan.tripPlans.subscribe((trips) => this.trips.push(...trips));
+  }
 }

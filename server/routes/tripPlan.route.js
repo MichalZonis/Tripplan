@@ -4,6 +4,7 @@ const TripPlan = require('../models/TripPlan'); // even if not used, it needs to
 var ctrlTripPlan = require('../controllers/tripPlan.controller');
 
 TripPlanRouter.post('/create', ctrlTripPlan.createTripPlan);
+TripPlanRouter.get('/all', ctrlTripPlan.getAllTripsOfUser);
 
 // GameRouter.get('/check', function (req, res) {
 //     res.send('games works!');

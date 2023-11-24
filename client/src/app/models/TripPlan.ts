@@ -1,10 +1,9 @@
 export type TripPlan = {
-    name: string,
+    title: string,
     id?: string,
     planners: string[],
     thumbnail?: string,
-    startDate: Date,
-    endDate: Date,
+    dates: dates,
 
     // constructor() {
     //     this.name = "lllll";
@@ -12,6 +11,11 @@ export type TripPlan = {
     //     this.planners = ["Michal", "Yair", "Michael"]
 
     // }
+}
+
+type dates = {
+    startDate: Date,
+    endDate: Date
 }
 
 export default TripPlan
