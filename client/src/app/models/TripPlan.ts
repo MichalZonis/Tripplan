@@ -1,17 +1,15 @@
-export type TripPlan = {
-    name: string,
-    id: string,
-    planners: string[],
-    thumbnail: string,
-    // startDate: Date,
-    // endDate: Date,
+import Attraction from "./attraction.model"
 
-    // constructor() {
-    //     this.name = "lllll";
-    //     this.id = "1";
-    //     this.planners = ["Michal", "Yair", "Michael"]
-
-    // }
+export class TripPlan  {
+    constructor(
+        public id: string,
+        public title: string,
+        public attractions: Attraction[],
+        public collaborators: string[], // will be replaced with user IDs
+        public dates: {
+            startDate: Date,
+            endDate: Date
+        },
+        public thumbnail: string // url for an image
+    ) {}
 }
-
-export default TripPlan

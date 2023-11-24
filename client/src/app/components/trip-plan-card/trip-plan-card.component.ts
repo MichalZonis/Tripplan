@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import TripPlan from "../../models/TripPlan";
+import { TripPlan } from "../../models/TripPlan";
 
 
 @Component({

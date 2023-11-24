@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const attraction = require('./Attraction');
 
 const tripPlanSchema = new mongoose.Schema({
-    title: String,
+    title: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     //collaborators: [],
     dates: {
         startDate: {
