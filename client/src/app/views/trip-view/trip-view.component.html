@@ -1,2 +1,8 @@
-<p>trip-view works!</p>
-<p>planning trip {{tripTitle}}</p>
+<h5>planning trip {{tripTitle}}</h5>
+<div class="row">
+    <div class="col-md-4">
+        <app-attraction
+        *ngFor="let attraction of tripPlan.attractions"
+        [attraction]="attraction"></app-attraction>
+    </div>
+</div>

@@ -1,1 +1,33 @@
-<p>attraction works!</p>
+<div class="card">
+    <div class="card-header">
+        {{attraction?.visitHours?.startTime}} - {{attraction?.visitHours?.endTime}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-header" *ngIf="!editMode; else editName">{{attraction?.name}}</h5>
+        <ng-template #editName>
+            <input type="text" class="form-control" [value]="attraction?.name">
+        </ng-template>
+        <br>
+        <div class="card-text">
+            <p *ngIf="!editMode; else editDesc">{{attraction?.description}}</p>
+            <ng-template #editDesc>
+                <textarea
+                class="form-control"
+                cols="20" rows="5">{{attraction?.description}}</textarea>
+            </ng-template>
+        </div>
+        <br>
+        <footer class="blockquote-footer">{{attraction?.visitDates?.startDate?.toDateString()}} - {{attraction?.visitDates?.endDate?.toDateString()}}</footer>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-primary" 
+        (click)="onToggleEdit()"
+        [ngClass]="{disabled: editMode}">Edit</button>
+        <button class="btn btn-success"
+        (click)="onSave()"
+        [ngClass]="{disabled: !editMode}">Save</button>
+        <button class="btn btn-danger float-end"
+        (click)="onCancel()"
+        [ngClass]="{disabled: !editMode}">cancel</button>
+    </div>
+</div>
