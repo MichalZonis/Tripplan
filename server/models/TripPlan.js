@@ -15,7 +15,7 @@ const tripPlanSchema = new mongoose.Schema({
             validate: {
                 validator: function (value) {
                     // 'this' refers to the document being validated
-                    return value <= this.endDate; // Ensure startDate is before or equal to endDate
+                    return value <= this.dates.endDate; // Ensure startDate is before or equal to endDate
                 },
                 message: 'Start date must be before or equal to end date',
             },
@@ -29,7 +29,7 @@ const tripPlanSchema = new mongoose.Schema({
         data: Buffer,
         contentType: String,
     },
-    attractions: [attraction] // these are embedded subdocuments
+    attractions: [] // these are embedded subdocuments
 });
 
 const tripPlan = mongoose.model("TripPlan", tripPlanSchema);
