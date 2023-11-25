@@ -18,7 +18,7 @@ export class TripPlanService {
   async createTripPlan() {
     const newTrip: TripPlan =
     {
-      title: "tokyo",
+      title: "tokyo2222",
       dates: {
         startDate: new Date(2022, 3, 20),
         endDate: new Date(2022, 4, 10)

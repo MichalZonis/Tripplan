@@ -3,17 +3,21 @@ import { CommonModule } from '@angular/common';
 import { TripPlanCardComponent } from '../../components/trip-plan-card/trip-plan-card.component';
 import TripPlan from '../../models/TripPlan';
 import { TripPlanService } from '../../services/trip-plan.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CreateTripComponent } from '../../components/create-trip/create-trip.component';
+import { NativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, TripPlanCardComponent],
+  imports: [CommonModule, TripPlanCardComponent, MatDialogModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
+  providers: [NativeDateAdapter]
 })
 export class HomeComponent {
 
-  constructor(public s_tripPlan: TripPlanService) { }
+  constructor(public s_tripPlan: TripPlanService, public dialog: MatDialog) { }
   trips$ = this.s_tripPlan.tripPlans$;
 
   trips: TripPlan[] = [{
@@ -72,5 +76,9 @@ export class HomeComponent {
 
   ngOnInit() {
     this.s_tripPlan.getAllTrips()
+  }
+
+  openDialog() {
+    this.dialog.open(CreateTripComponent, { width: '80%', height: '75%' });
   }
 }
