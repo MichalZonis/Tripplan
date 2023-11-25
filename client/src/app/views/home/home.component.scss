@@ -1,10 +1,15 @@
 .placeholder-card {
   opacity: 0.5;
-
   .plus {
     font-size: 13rem !important
   }
+
   &:hover {
-    opacity: 1;
+    opacity: 1 !important;
   }
 }
+
+.card {
+  cursor: pointer;
+}
+
