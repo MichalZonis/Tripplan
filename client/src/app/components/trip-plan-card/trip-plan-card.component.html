@@ -1,6 +1,9 @@
 <div class="card" style="width: 18rem;">
-  <img *ngIf="tripPlan.thumbnail" [src]="tripPlan.thumbnail" class="card-img-top" alt="...">
-  <i class="trip-placeholder bi bi-house-fill align-self-center"></i>
+  @if (tripPlan.thumbnail) {
+    <img [src]="tripPlan.thumbnail" class="card-img-top" alt="...">
+  } @else {
+    <i class="trip-placeholder bi bi-house-fill align-self-center"></i>
+  }
   <div class="card-body">
     <p class="card-text fs-4">{{tripPlan.title}}</p>
     <p>{{tripPlan.dates.startDate | date}} - {{tripPlan.dates.endDate | date}}</p>
