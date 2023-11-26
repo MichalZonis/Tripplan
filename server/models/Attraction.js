@@ -69,4 +69,15 @@ const attractionSchema = new mongoose.Schema({
 });
 
 const attraction = mongoose.model("Attraction", attractionSchema);
+
+// Duplicate the ID field.
+attractionSchema.virtual('id').get(function(){
+    return this._id.toHexString();
+});
+
+// Ensure virtual fields are serialised.
+attractionSchema.set('toJSON', {
+    virtuals: true
+});
+
 module.exports = attraction;
