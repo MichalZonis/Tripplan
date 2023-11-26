@@ -38,7 +38,7 @@ module.exports.AddAttraction = async function(req, res) {
         // create the attraction
         const newAttraction = await Attraction.create(attractionToAdd);
         
-        // link the attraction to the gien trip ID
+        // link the attraction to the given trip ID
         const trip = await TripPlan.findById(tripID);
         trip.attractions.push(newAttraction._id);
         await trip.save();
@@ -49,30 +49,18 @@ module.exports.AddAttraction = async function(req, res) {
 }
 
 module.exports.UpdateAttraction = async function (req, res) {
-    const attraction = req.body.attraction;
+    const attractionID = req.body.attraction.id;
+    const {id:_, ...attraction} = req.body.attraction;
 
     if(!attraction) {
         return res.status(404).json({error: "no attraction sent"})
     }
 
-    let oldAttraction = await Attraction.findById(attraction.id);
-
-    if(!oldAttraction) {
-        return res.status(404).json({error: "no attraction found with given id of " + attraction.id})
-    }
-
-    oldAttraction.name = attraction.name;
-    oldAttraction.GeolocationCoordinates = attraction.GeolocationCoordinates;
-    oldAttraction.isOptional = attraction.isOptional;
-    oldAttraction.visitHours = attraction.visitHours;
-    oldAttraction.visitDates = attraction.visitDates;
-    oldAttraction.description = attraction.description;
-    oldAttraction.attractionPrice = attraction.attractionPrice;
-
-    oldAttraction.save().then((newAttraction) => {
-        res.status(200).json({message: "successfully updated attraction", attraction: newAttraction})
-    }).catch(error => {
-        res.status(500).json({message: "error while updating attraction", error: error})
+    Attraction.findByIdAndUpdate(attractionID, attraction)
+    .then(() => {
+        return res.status(200).json({message: "updated successfully"})
+    }) 
+    .catch(error => {
+        return res.status(500).json({error: error})
     })
-
 }
