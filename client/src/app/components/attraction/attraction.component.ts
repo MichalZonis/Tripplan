@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import Attraction from '../../models/attraction.model';
 import { FormsModule } from '@angular/forms';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
+import { AttractionService } from '../../services/attraction.service';
 
 @Component({
   selector: 'app-attraction',
@@ -23,6 +24,8 @@ export class AttractionComponent {
   newStartDate: Date = new Date();
   newEndDate: Date = new Date();
   newAttractionPrice: number = 0;
+
+  constructor(private attractionService: AttractionService) {}
 
   ngOnInit() {
     this.resetFormData()
@@ -58,6 +61,7 @@ export class AttractionComponent {
       this.attraction.visitHours.endTime = this.newEndTime;
       this.attraction.visitDates.startDate = this.newStartDate;
       this.attraction.visitDates.endDate = this.newEndDate;
+      this.attractionService.updateAttraction(this.attraction);
     }
   }
 }
