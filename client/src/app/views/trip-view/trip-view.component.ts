@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { TripPlan } from '../../models/TripPlan';
 import Attraction from '../../models/attraction.model';
 import { AttractionComponent } from '../../components/attraction/attraction.component';
 import { AttractionService } from '../../services/attraction.service';
@@ -24,8 +23,15 @@ export class TripViewComponent {
   ngOnInit() {
     // load attractions from attractions service
     this.attractionService.getAttraction(this.route.snapshot.params['id']).subscribe(res => {
-      this.attractions = res.attractions
-      console.log(this.attractions)
+      res.attractions.forEach(attraction => {
+        this.attractions.push(
+          new Attraction(attraction.id, attraction.name,
+                        attraction.GeolocationCoordinates, attraction.isOptional,
+                        attraction.visitHours,
+                        {startDate: new Date(attraction.visitDates.startDate), endDate: new Date(attraction.visitDates.endDate)},
+                        attraction.description, attraction.attractionPrice)
+        )
+      })
     })
   }
 }
