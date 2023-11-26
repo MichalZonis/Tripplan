@@ -8,6 +8,5 @@ import { provideHttpClient } from '@angular/common/http';
 import { AuthGuard } from './AuthGuard';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimations()]
   providers: [provideRouter(routes), AuthenticationService, provideHttpClient(), AuthGuard]
 };

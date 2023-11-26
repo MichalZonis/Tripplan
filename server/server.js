@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const dbConfig = require('./config/database.config');
 
 const routes = require('./routes/base.route');
-const GameRouter = require('./routes/game.route')
 
 const app = express();
 
