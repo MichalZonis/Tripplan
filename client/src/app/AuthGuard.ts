@@ -17,6 +17,9 @@ export class AuthGuard {
   authStatus: boolean = false;
   
   canActivate() {
+    if (!this.authStatus) {
+      this.router.navigate(['/login'])
+    }
     return this.authStatus;
   }
 }
