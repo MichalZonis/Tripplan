@@ -47,3 +47,32 @@ module.exports.AddAttraction = async function(req, res) {
         return res.status(500).json({error: err})
     }
 }
+
+module.exports.UpdateAttraction = async function (req, res) {
+    const attraction = req.body.attraction;
+
+    if(!attraction) {
+        return res.status(404).json({error: "no attraction sent"})
+    }
+
+    let oldAttraction = await Attraction.findById(attraction.id);
+
+    if(!oldAttraction) {
+        return res.status(404).json({error: "no attraction found with given id of " + attraction.id})
+    }
+
+    oldAttraction.name = attraction.name;
+    oldAttraction.GeolocationCoordinates = attraction.GeolocationCoordinates;
+    oldAttraction.isOptional = attraction.isOptional;
+    oldAttraction.visitHours = attraction.visitHours;
+    oldAttraction.visitDates = attraction.visitDates;
+    oldAttraction.description = attraction.description;
+    oldAttraction.attractionPrice = attraction.attractionPrice;
+
+    oldAttraction.save().then((newAttraction) => {
+        res.status(200).json({message: "successfully updated attraction", attraction: newAttraction})
+    }).catch(error => {
+        res.status(500).json({message: "error while updating attraction", error: error})
+    })
+
+}
