@@ -7,6 +7,7 @@ const dbConfig = require('./config/database.config');
 
 const routes = require('./routes/base.route');
 const TripsRouter = require('./routes/trips.route');
+const AttractionsRouter = require('./routes/attractions.route')
 
 const app = express();
 
@@ -37,6 +38,7 @@ mongoose.connect(dbConfig.url).then(() => {
 // #region routers
 app.use('/', routes);
 app.use('/trips', TripsRouter);
+app.use('/attractions', AttractionsRouter);
 // #endregion routers
 
 
