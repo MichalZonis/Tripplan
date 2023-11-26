@@ -9,10 +9,7 @@ import { Router } from "@angular/router";
 })
 
 export class AuthenticationService {
-    loginUrl = "http://localhost:8000/auth/login";
-    assertionUrl = "http://localhost:8000/auth/assert";
-    googleAssertionUrl = "http://localhost:8000/auth/assert/google";
-    registerUrl = "http://localhost:8000/auth/register";
+    private backendUrl = "http://localhost:8000/auth"
 
     private currentUserSubject = new BehaviorSubject<User | null>(null);
     public currentUser = this.currentUserSubject.asObservable();
@@ -36,7 +33,7 @@ export class AuthenticationService {
     login(email: string, password: string) {
         this.http.post
         <{accessToken: string, role: string, email: string, id: string, firstName: string, lastName: string}>
-        (this.loginUrl, {email: email, password: password})
+        (`${this.backendUrl}/login`, {email: email, password: password})
         .subscribe((res) => {
             localStorage.setItem("accessToken", res.accessToken);
             this.currentUserSubject.next(new User(res.email, res.role, res.id, res.firstName, res.lastName))
@@ -82,7 +79,7 @@ export class AuthenticationService {
         if(accessToken) {
             this.http.post
             <{decodedToken: any}>
-            (this.assertionUrl, {accessToken: accessToken}).subscribe(res => {
+            (`${this.backendUrl}/assert`, {accessToken: accessToken}).subscribe(res => {
                 const user = new User(res.decodedToken.email, res.decodedToken.role,
                                       res.decodedToken.id, res.decodedToken.firstName, 
                                       res.decodedToken.lastName);   
@@ -95,7 +92,7 @@ export class AuthenticationService {
     register(email: string, password: string, firstName: string, lastName: string) {
         this.http.post
         <{accessToken: string, email: string, role: string, id: string, firstName: string, lastName: string}>
-        (this.registerUrl, {email, password, firstName, lastName}).subscribe(res => {
+        (`${this.backendUrl}/register`, {email, password, firstName, lastName}).subscribe(res => {
             localStorage.setItem("accessToken", res.accessToken);
             this.currentUserSubject.next(new User(res.email, res.role, res.id, res.firstName, res.lastName))
             this.isAuthenticatedSubject.next(true);
