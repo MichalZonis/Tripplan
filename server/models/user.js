@@ -1,29 +1,10 @@
-const Mongoose = require("mongoose")
-const UserSchema = new Mongoose.Schema({
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  password: {
-    type: String,
-    minlength: 6,
-    required: true,
-  },
-  role: {
-    type: String,
-    default: "Basic",
-    required: true,
-  },
-  firstName: {
-    type: String,
-    reuired: true
-  },
-  lastName: {
-    type: String,
-    required: true
-  }
-})
+const mongoose = require('mongoose');
 
-const User = Mongoose.model("user", UserSchema)
-module.exports = User
+// TODO: this is a template for an object model. create others as needed and rename or delete this one.
+
+// const gameSchema = new mongoose.Schema({
+// });
+
+// const game = mongoose.model("game", gameSchema);
+
+// module.exports = game;
