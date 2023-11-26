@@ -9,7 +9,10 @@ module.exports.UpdateAttraction = async function (req, res) {
     }
 
     Attraction.findByIdAndUpdate(attractionID, attraction)
-    .then(() => {
+    .then((document) => {
+        if(!document) {
+            return res.status(404).json({error: "no attraction found with given id"})
+        }
         return res.status(200).json({message: "updated successfully"})
     }) 
     .catch(error => {
