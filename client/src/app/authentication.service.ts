@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { User } from "./user.model";
 import { BehaviorSubject, Observable, Observer } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({
     providedIn: "root"
@@ -19,8 +20,17 @@ export class AuthenticationService {
     private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
     public isAuthenticated = this.isAuthenticatedSubject.asObservable();
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private router: Router) {
         this.tryAssertion()
+
+        // ensure that the user always gets redirected to the proper page
+        this.isAuthenticated.subscribe(newStatus => {
+            if(newStatus === true) {
+                this.router.navigate(['/home'])
+            } else {
+                this.router.navigate(['/login'])
+            }
+        })
     }
 
     login(email: string, password: string) {
@@ -35,12 +45,10 @@ export class AuthenticationService {
     }
 
     getLoggedUser(): User | null {
-        this.tryAssertion()
         return this.currentUserSubject.value
     }
 
     getIsAuthenticated(): boolean {
-        this.tryAssertion()
         return this.isAuthenticatedSubject.value;
     }
 
@@ -65,6 +73,7 @@ export class AuthenticationService {
             });
             const content = await rawResponse.json();
             localStorage.setItem("accessToken", content.accessToken)
+            location.reload();
         })();
     }
 
@@ -89,7 +98,7 @@ export class AuthenticationService {
         (this.registerUrl, {email, password, firstName, lastName}).subscribe(res => {
             localStorage.setItem("accessToken", res.accessToken);
             this.currentUserSubject.next(new User(res.email, res.role, res.id, res.firstName, res.lastName))
-            this.isAuthenticatedSubject.next(true); 
+            this.isAuthenticatedSubject.next(true);
         })
     }
 }
