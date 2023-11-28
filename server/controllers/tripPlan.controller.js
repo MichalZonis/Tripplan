@@ -21,3 +21,15 @@ module.exports.getAllTripsOfUser = function (req, res) {
     .then(trips => res.send(trips))
     .catch((error) => res.send(error))
 }
+
+module.exports.deleteTrip = function (req, res) {
+  const tripToDelete = req.body.tripToDelete._id;
+  TripPlan.deleteOne({
+      _id: tripToDelete._id
+    }).then(trip => {
+      res.status(200).json(trip)
+    })
+    .catch((error) => {
+      console.error('Error deleting trip:', error.message);
+    })
+}

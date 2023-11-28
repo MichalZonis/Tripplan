@@ -12,7 +12,7 @@ export class HttpService {
   }
 
   public get(uri: string, payload?: Object) {
-    return this.http.get(`${this.ROOT_URL}/${uri}`, payload)
+    return this.http.get(`${this.ROOT_URL}/${uri}`)
   }
 
   public post(uri: string, payload?: Object, options?: {}) {
@@ -24,7 +24,7 @@ export class HttpService {
   }
 
   public delete(uri: string, payload?: Object) {
-    return this.http.delete(`${this.ROOT_URL}/${uri}`, payload)
+    return this.http.delete(`${this.ROOT_URL}/${uri}`)
   }
 
 }

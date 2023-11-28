@@ -5,6 +5,7 @@ var ctrlTripPlan = require('../controllers/tripPlan.controller');
 
 TripPlanRouter.post('/create', ctrlTripPlan.createTripPlan);
 TripPlanRouter.get('/all', ctrlTripPlan.getAllTripsOfUser);
+TripPlanRouter.post('/delete', ctrlTripPlan.deleteTrip);
 
 // GameRouter.get('/check', function (req, res) {
 //     res.send('games works!');

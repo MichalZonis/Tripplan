@@ -18,7 +18,7 @@ export class TripPlanService {
   async createTripPlan() {
     const newTrip: TripPlan =
     {
-      title: "tokyo2222",
+      title: "tokyo is the best",
       dates: {
         startDate: new Date(2022, 3, 20),
         endDate: new Date(2022, 4, 10)
@@ -34,5 +34,14 @@ export class TripPlanService {
     this.http.get("tripPlan/all").subscribe((trips: any) => {
       this._tripPlans.next([...trips])
     });
+  }
+
+  deleteTrip(tripToDelete: TripPlan) {
+    this.http.post("tripPlan/delete", { tripToDelete }).subscribe((deletedTrip: any) => {
+      const deletedTripIndex = this._tripPlans.value.indexOf(tripToDelete);
+      const tripCopy = this._tripPlans.value;
+      tripCopy.splice(deletedTripIndex, 1);
+      this._tripPlans.next([...tripCopy]);
+    })
   }
 }
