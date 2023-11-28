@@ -1,9 +1,19 @@
 <div class="card" style="width: 18rem;">
   @if (tripPlan.thumbnail) {
-    <img [src]="tripPlan.thumbnail" class="card-img-top" alt="...">
+  <img [src]="tripPlan.thumbnail" class="card-img-top" alt="...">
   } @else {
-    <i class="trip-placeholder bi bi-house-fill align-self-center"></i>
+  <i class="trip-placeholder bi bi-house-fill align-self-center"></i>
   }
+  <div class="dropdown">
+    <button class=" menu-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <i class="bi bi-three-dots-vertical"></i>
+    </button>
+    <ul class="dropdown-menu">
+      <li><div class="dropdown-item">Edit</div></li>
+      <li><div class="dropdown-item">Delete</div></li>
+      <li><div class="dropdown-item">Share</div></li>
+    </ul>
+  </div>
   <div class="card-body">
     <p class="card-text fs-4">{{tripPlan.title}}</p>
     <p>{{tripPlan.dates.startDate | date}} - {{tripPlan.dates.endDate | date}}</p>
