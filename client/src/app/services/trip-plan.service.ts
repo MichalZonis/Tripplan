@@ -38,7 +38,7 @@ export class TripPlanService {
 
   deleteTrip(tripToDelete: TripPlan) {
     this.http.post("tripPlan/delete", { tripToDelete }).subscribe((deletedTrip: any) => {
-      const deletedTripIndex = this._tripPlans.value.indexOf(tripToDelete);
+      const deletedTripIndex = this._tripPlans.value.findIndex((trip) => trip._id == deletedTrip._id);
       const tripCopy = this._tripPlans.value;
       tripCopy.splice(deletedTripIndex, 1);
       this._tripPlans.next([...tripCopy]);

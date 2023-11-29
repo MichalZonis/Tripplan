@@ -23,10 +23,12 @@ module.exports.getAllTripsOfUser = function (req, res) {
 }
 
 module.exports.deleteTrip = function (req, res) {
-  const tripToDelete = req.body.tripToDelete._id;
+  const tripToDelete = req.body.tripToDelete;
+  console.log(tripToDelete)
   TripPlan.deleteOne({
       _id: tripToDelete._id
     }).then(trip => {
+      console.log("deleted " + tripToDelete._id)
       res.status(200).json(trip)
     })
     .catch((error) => {

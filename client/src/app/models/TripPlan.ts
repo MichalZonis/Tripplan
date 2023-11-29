@@ -1,6 +1,6 @@
 export type TripPlan = {
     title: string,
-    id?: string,
+    _id?: string,
     planners: string[],
     thumbnail?: string,
     dates: dates,
