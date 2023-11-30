@@ -10,7 +10,7 @@
     </button>
     <ul class="dropdown-menu">
       <li>
-        <div class="dropdown-item">Edit</div>
+        <div class="dropdown-item" (click)="editTrip()">Edit</div>
       </li>
       <li>
         <div class="dropdown-item" (click)="delete()">Delete</div>
@@ -21,7 +21,11 @@
     </ul>
   </div>
   <div class="card-body">
+    @if(isEditMode){
+    <input formControlName="titleCtrl" class="card-text fs-4 text-black">
+    } @else {
     <p class="card-text fs-4">{{tripPlan.title}}</p>
+    }
     <p>{{tripPlan.dates.startDate | date}} - {{tripPlan.dates.endDate | date}}</p>
     <!-- <p>Collaborators: {{tripPlan.planners.join(", ")}}</p> -->
     <!-- TODO: there is this thing in angular 17 where you use @for instead of ngFor. worth considering -->
