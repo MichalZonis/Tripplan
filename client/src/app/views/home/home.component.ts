@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TripPlanCardComponent } from '../../components/trip-plan-card/trip-plan-card.component';
-import TripPlan from '../../models/TripPlan';
 import { TripPlanService } from '../../services/trip-plan.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreateTripComponent } from '../../components/create-trip/create-trip.component';
