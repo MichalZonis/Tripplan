@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import TripPlan from '../models/TripPlan';
 import { HttpService } from './http.service';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
