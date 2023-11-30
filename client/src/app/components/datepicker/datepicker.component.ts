@@ -1,6 +1,6 @@
 import { Component, inject, Output, EventEmitter } from '@angular/core';
 import { CommonModule, JsonPipe } from '@angular/common';
-import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDatepickerConfig, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -16,8 +16,9 @@ export class DatepickerComponent {
 
   hoveredDate: NgbDate | null = null;
 
+  // TODO: change parsing to dd-MM-yyyy format
   fromDate: NgbDate | null = this.calendar.getToday();
-  toDate: NgbDate | null = this.calendar.getNext(this.calendar.getToday(), 'd', 10);
+  toDate: NgbDate | null = this.calendar.getToday();
 
   @Output() dateSelectedEvent = new EventEmitter<[NgbDate | null, "start" | "end"]>();
 
