@@ -1,12 +1,14 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TripPlanService } from '../../services/trip-plan.service';
+import TripPlan from '../../models/TripPlan';
 
-import { NgbCalendar, NgbDate, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { DatepickerComponent } from '../datepicker/datepicker.component';
 
 @Component({
   selector: 'app-create-trip',
@@ -17,63 +19,51 @@ import { NgbCalendar, NgbDate, NgbDatepickerModule } from '@ng-bootstrap/ng-boot
     FormsModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    DatepickerComponent
   ],
   templateUrl: './create-trip.component.html',
   styleUrl: './create-trip.component.scss',
 })
 export class CreateTripComponent {
-  calendar = inject(NgbCalendar);
 
-  title = new FormControl('');
+  title = new FormControl(''); //TODO: add vaalidation
 
-
-  dates = new FormGroup({
-    startDate: new FormControl<Date | null>(null),
-    endDate: new FormControl<Date | null>(null),
-  });
-
-  hoveredDate: NgbDate | null = null;
-  fromDate: NgbDate = this.calendar.getToday();
-  toDate: NgbDate | null = this.calendar.getNext(this.fromDate, 'd', 10);
+  startDate: Date | null = new Date()
+  endDate: Date | null = new Date()
 
   constructor(
     public dialogRef: MatDialogRef<CreateTripComponent>,
     public s_tripPlan: TripPlanService
   ) { }
 
-  onDateSelection(date: NgbDate) {
-    if (!this.fromDate && !this.toDate) {
-      this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date.after(this.fromDate)) {
-      this.toDate = date;
+
+  setDate(newDate: [NgbDate | null, "start" | "end"]) {
+    if (newDate[0]) {
+      const year = newDate[0].year;
+      const month = newDate[0].month - 1; // NgbDate month is 1-based, while JavaScript Date month is 0-based
+      const day = newDate[0].day;
+      if (newDate[1] == "start") {
+        this.startDate = new Date(year, month, day);
+      } else {
+        this.endDate = new Date(year, month, day);
+      }
     } else {
-      this.toDate = null;
-      this.fromDate = date;
+      newDate[1] == "start" ? this.startDate = null : this.endDate = null
     }
   }
 
-  isHovered(date: NgbDate) {
-    return (
-      this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate)
-    );
+  createTrip() {
+    const tripToCreate: TripPlan = {
+      title: this.title.value!,
+      dates: {
+        startDate: this.startDate!,
+        endDate: this.endDate!
+      },
+      planners: ["Michal"] // TODO: add corrent user when users are integrated
+
+    }
+    this.s_tripPlan.createTripPlan(tripToCreate);
+    this.dialogRef.close();
   }
-
-  isInside(date: NgbDate) {
-    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
-  }
-
-  isRange(date: NgbDate) {
-    return (
-      date.equals(this.fromDate) ||
-      (this.toDate && date.equals(this.toDate)) ||
-      this.isInside(date) ||
-      this.isHovered(date)
-    );
-  }
-
-
-
-
-
 }
