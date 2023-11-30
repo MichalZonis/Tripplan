@@ -15,16 +15,16 @@ export class TripPlanService {
 
   constructor(private http: HttpService) { }
 
-  async createTripPlan() {
-    const newTrip: TripPlan =
-    {
-      title: "tokyo is the best",
-      dates: {
-        startDate: new Date(2022, 3, 20),
-        endDate: new Date(2022, 4, 10)
-      },
-      planners: ["Yair", "Michal"]
-    }
+  async createTripPlan(newTrip: TripPlan) {
+    // const  =
+    // {
+    //   title: "tokyo is the best",
+    //   dates: {
+    //     startDate: new Date(2022, 3, 20),
+    //     endDate: new Date(2022, 4, 10)
+    //   },
+    //   planners: ["Yair", "Michal"]
+    // }
     this.http.post("tripPlan/create", { newTrip }).subscribe((newTrip: any) => {
       this._tripPlans.next([...this._tripPlans.value, newTrip])
     });
