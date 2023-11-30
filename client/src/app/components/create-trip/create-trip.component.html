@@ -1,9 +1,9 @@
-<div class="create-dialog h-100 d-flex justify-content-center">
+<div class="create-dialog h-100 d-flex justify-content-center text-center">
   <form (submit)="createTrip()" class="w-75">
     <div class="row m-3">
       <input placeholder="Trip Title" type="text" [formControl]="title" class="form-control">
     </div>
     <app-datepicker (dateSelectedEvent)="setDate($event)"></app-datepicker>
-    <button type="submit" class="btn btn-light">create</button>
+    <button type="submit" class="btn btn-light m-3">create</button>
   </form>
 </div>
