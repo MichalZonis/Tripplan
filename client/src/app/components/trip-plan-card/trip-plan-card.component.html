@@ -10,7 +10,11 @@
     </button>
     <ul class="dropdown-menu">
       <li>
-        <div class="dropdown-item" (click)="editTrip()">Edit</div>
+        @if(isEditMode){
+          <div class="dropdown-item" (click)="editTrip()">Save</div>
+        }  @else {
+          <div class="dropdown-item" (click)="editTrip()">Edit</div>
+        }
       </li>
       <li>
         <div class="dropdown-item" (click)="delete()">Delete</div>
@@ -22,7 +26,7 @@
   </div>
   <div class="card-body">
     @if(isEditMode){
-    <input formControlName="titleCtrl" class="card-text fs-4 text-black">
+    <input formControlName="titleCtrl" class="card-text fs-4 text-black edit-field mb-1">
     } @else {
     <p class="card-text fs-4">{{tripPlan.title}}</p>
     }
