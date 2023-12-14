@@ -1,0 +1,31 @@
+<div class="card mt-5">
+    <div class="card-body text-center">
+        <form>
+            <div class="form-inline">
+                <input type="text" placeholder="first name" class="form-control"
+                [(ngModel)]="firstName"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+            <br>
+            <div class="form-inline">
+                <input type="text" placeholder="last name" class="form-control"
+                [(ngModel)]="lastName"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+            <br>
+            <div class="form-inline">
+                <input type="email" placeholder="email" class="form-control"
+                [(ngModel)]="email"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+            <br>
+            <div class="form-inline">
+                <input type="password" placeholder="password" class="form-control"
+                [(ngModel)]="password"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+        </form>
+    </div>
+    <button class="btn btn-primary btn-block mb-5" (click)="onRegister()">Register</button>
+    <p>Already a member? <a routerLink="/login">Login</a></p>
+</div>
