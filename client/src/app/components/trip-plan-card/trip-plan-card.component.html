@@ -11,9 +11,9 @@
     <ul class="dropdown-menu">
       <li>
         @if(isEditMode){
-          <div class="dropdown-item" (click)="editTrip()">Save</div>
-        }  @else {
-          <div class="dropdown-item" (click)="editTrip()">Edit</div>
+        <div class="dropdown-item" (click)="saveTrip()">Save</div>
+        } @else {
+        <div class="dropdown-item" (click)="editTrip()">Edit</div>
         }
       </li>
       <li>
@@ -26,7 +26,11 @@
   </div>
   <div class="card-body">
     @if(isEditMode){
-    <input formControlName="titleCtrl" class="card-text fs-4 text-black edit-field mb-1">
+    <div [formGroup]="editForm" class="input-group mb-3">
+      <input formControlName="titleCtrl" placeholder="title" [value]="tripPlan.title" type="text" class="form-control"
+        placeholder="trip title" aria-label="trip title">
+      <button class="btn btn-outline-secondary" type="button" (click)="saveTrip()" id="button-addon2">Save</button>
+    </div>
     } @else {
     <p class="card-text fs-4">{{tripPlan.title}}</p>
     }

@@ -35,4 +35,13 @@ export class TripPlanService {
       this._tripPlans.next([...tripCopy]);
     })
   }
+
+  editTrip(tripToEdit: TripPlan) {
+    this.http.post("tripPlan/edit", { tripToEdit }).subscribe((editedTrip: any) => {
+      const EditedTripIndex = this._tripPlans.value.findIndex((trip) => trip._id == tripToEdit._id);
+      const tripCopy = this._tripPlans.value;
+      tripCopy[EditedTripIndex] = tripToEdit;
+      this._tripPlans.next([...tripCopy]);
+    })
+  }
 }

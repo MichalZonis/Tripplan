@@ -35,3 +35,17 @@ module.exports.deleteTrip = function (req, res) {
       console.error('Error deleting trip:', error.message);
     })
 }
+
+module.exports.EditTrip = function (req, res) {
+  // TODO: add authentication check - maybe as a middleware
+  const tripToEdit = req.body.tripToEdit;
+  TripPlan.findOneAndUpdate({
+      _id: tripToEdit._id
+    }, tripToEdit).then(trip => {
+      console.log("Edited " + tripToEdit._id)
+      res.status(200).json(trip)
+    })
+    .catch((error) => {
+      console.error('Error saving trip:', error.message);
+    })
+}
