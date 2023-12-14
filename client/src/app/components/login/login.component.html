@@ -1,0 +1,46 @@
+<div class="container-fluid mt-5">
+    <div class="card">
+        <div class="card-body text-center">
+            <form>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="email" 
+                            id="email"
+                            class="form-control" 
+                            [(ngModel)]="email"
+                            [ngModelOptions]="{standalone: true}"
+                            placeholder="myemail@example.com"/>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="password" 
+                            id="password" 
+                            class="form-control" 
+                            [(ngModel)]="password"
+                            placeholder="password"
+                            [ngModelOptions]="{standalone: true}"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- Submit button -->
+                <br>
+                <button type="button" 
+                class="btn btn-primary btn-block mb-4"
+                (click)="login()"
+                >Sign in</button>
+              
+                <!-- Register buttons -->
+                <div class="text-center">
+                  <p>Not a member? <a routerLink="/register">Register</a></p>
+                  <p>or sign in with:</p>
+                  <button id="googleSignInButton"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
