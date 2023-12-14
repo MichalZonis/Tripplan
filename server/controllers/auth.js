@@ -8,16 +8,16 @@ const crypto = require('crypto');
 
 // receive userId and return signed JWT promise
 async function buildJWT(userID) {
+  const MAX_AGE = 3 * 60 * 60; // 3hrs in sec
   const user = await User.findById(userID)
   if(!user) {
     // handle exception
   } else {
     // build the JWT
-    const maxAge = 3 * 60 * 60; // 3hrs in sec
     const tokenPromise = jwt.sign(
       { id: user._id, email: user.email, role: user.role, firstName: user.firstName, lastName: user.lastName },
         secret,
-      { expiresIn: maxAge }
+      { expiresIn: MAX_AGE }
     );
     return tokenPromise
   }
@@ -25,8 +25,10 @@ async function buildJWT(userID) {
 
 // register a new user. returns an access token
 exports.register = async (req, res, next) => {
+    const MIN_PWD_LENGTH = 6;
     const { email, password, firstName, lastName } = req.body;
-    if (password.length < 6) {
+
+    if (password.length < MIN_PWD_LENGTH) {
       return res.status(400).json({ message: "Password less than 6 characters" })
     }
 
